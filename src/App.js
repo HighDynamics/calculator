@@ -3,9 +3,10 @@ import ReactDOM from 'react'
 import './App.css';
 
 function Output(props){
+  const input = props.input;
   return(
     <>
-      {input}
+      {parseFloat(input, 10)}
     </>
   );
 }
@@ -13,7 +14,7 @@ function Output(props){
 function UtilityButtons(props){
   const utilities = props.utilities;
   const utilityButtons = utilities.map((utility) =>
-  <button key={utility.toString()} id={utility.toString()}>
+  <button key={utility} id={utility}>
     {utility}
   </button>
   );
@@ -34,7 +35,7 @@ function Utilities(props){
 function OperatorList(props){
   const operators = props.operators;
   const operatorButtons = operators.map((operator) =>
-    <button key={operator.toString()} id={operator.toString()}>
+    <button key={operator} id={operator}>
       {operator}
     </button>
   )
@@ -57,9 +58,14 @@ function Operators(props){
 //get numbers from props and render
 function NumberList(props){
   const numbers = props.numbers;
+  const input = props.input;
+  const setInput = props.setInput;
   const numberButtons = numbers.map((number) =>
-    <button key={number.toString()} id={number.toString()}>
-      {number}
+    <button
+      key={number}
+      id={number}
+      onClick={() => setInput(input + number)}>
+        {number}
     </button>
   );
   return(
@@ -70,20 +76,22 @@ function NumberList(props){
 }
 //numbers on a calculator
 function Numbers(props){
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+  const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
+  const input = props.input;
+  const setInput = props.setInput;
   return(
     <>
-      <NumberList numbers={numbers} />
+      <NumberList numbers={numbers} setInput={setInput} input={input}/>
     </>
   );
 }
 //MOST RECENT ----- ATTEMPTING TO PASS PROPS FOR DISPLAY
 function App(){
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('0')
   return (
     <>
       <Output input={input}/>
-      <Numbers setInput={setInput}/>
+      <Numbers setInput={setInput} input={input}/>
       <Operators setInput={setInput}/>
       <Utilities setInput={setInput}/>
     </>
