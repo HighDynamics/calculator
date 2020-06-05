@@ -1,3 +1,86 @@
-#1{
-  border-radius: 50%
+#appWrapper{
+  display: grid;
+    grid-template-columns: 25vw 25vw 25vw 25vw;
+    grid-template-rows: 10vh 20vh 10vh 12vh 12vh 12vh 12vh 12vh;
+    grid-template-areas:
+      'expression expression expression expression'
+      'evaluation evaluation evaluation evaluation'
+      'output output output output'
+      'AC negPos percent divide'
+      'num7 num8 num9 multi'
+      'num4 num5 num6 minus'
+      'num1 num2 num3 plus'
+      'num0 num0 point equals'
+}
+#expression{
+  grid-area: expression;
+}
+#evaluation{
+  grid-area: evaluation;
+}
+#output{
+  grid-area: output;
+}
+#ut0{
+  grid-area: negPos;
+}
+#ut1{
+  grid-area: percent;
+}
+#op0{
+  grid-area: plus;
+}
+#op1{
+  grid-area: minus;
+}
+#op2{
+  grid-area: multi;
+}
+#op3{
+  grid-area: divide;
+}
+#op4{
+  grid-area: equals;
+}
+#num0{
+  grid-area: num0;
+}
+#num1{
+  grid-area: num1;
+}
+#num2{
+  grid-area: num2;
+}
+#num3{
+  grid-area: num3;
+}
+#num4{
+  grid-area: num4;
+}
+#num5{
+  grid-area: num5;
+}
+#num6{
+  grid-area: num6;
+}
+#num7{
+  grid-area: num7;
+}
+#num8{
+  grid-area: num8;
+}
+#num9{
+  grid-area: num9;
+}
+#num10{
+  grid-area: point;
+}
+.utilities{
+
+}
+.operators{
+
+}
+.numbers{
+
 }

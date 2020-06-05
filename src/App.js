@@ -4,7 +4,10 @@ import './App.css';
 
 function OutputHistory(props){
   return(
-    <div>{sessionStorage.expression}</div>
+    <>
+      <div id='expression'>{sessionStorage.expression}</div>
+      <div id='evaluation'>{sessionStorage.evaluation}</div>
+    </>
   );
 }
 
@@ -13,7 +16,7 @@ function Output(props){
 //parseFloat makes initial 0 disappear! Hooray
   return(
     <>
-      {parseFloat(input, 10)}
+      <div id='output'>{parseFloat(input, 10)}</div>
     </>
   );
 }
@@ -22,10 +25,25 @@ function UtilityList(props){
   const utilities = props.utilities;
   const input = props.input;
   const setInput = props.setInput;
+  const allClearButton =
+    <button
+      id='AC'
+      key='AC'
+      onClick={() => clickUtility('AC')}>
+      AC
+      </button>
+  const clearButton =
+    <button
+      id="C"
+      key='C'
+      onClick={() => clickUtility('C')}>
+      C
+      </button>
   function clickUtility(utility){
     switch(utility){
       case 'AC':
         sessionStorage.expression = '';
+        sessionStorage.evaluation = '';
         setInput('0');
         break;
       case 'C':
@@ -38,25 +56,34 @@ function UtilityList(props){
           setInput(input.substring(1));
         };
         break;
+      case '%':
+        if(input == '0'){
+          setInput('0.')
+        }else{
+          setInput((parseFloat(input, 10) * 0.01).toString())
+        };
+        break;
     }
   }
-  const utilityButtons = utilities.map((utility) =>
+  const utilityButtons = utilities.map((utility, index) =>
   <button
+    className='utilities'
     key={utility}
-    id={utility}
+    id={'ut' + index}
     onClick={() => clickUtility(utility)}>
     {utility}
   </button>
   );
   return(
     <>
+      {input !== '0' ? clearButton : allClearButton}
       {utilityButtons}
     </>
   );
 }
 //All clear, clear, negative/positive, percentage
 function Utilities(props){
-  const utilities = ['AC', 'C', '+/-', '%']
+  const utilities = ['+/-', '%']
   const input = props.input;
   const setInput = props.setInput;
   return(
@@ -73,31 +100,38 @@ function OperatorList(props){
   const input = props.input;
   const setInput = props.setInput;
 //Saves input, concatenates to previous input(if any); reset state
-  function saveExpression(operator){
+  function saveOrEvalExpression(operator){
     switch(operator){
       case '+':
-        sessionStorage.expression = sessionStorage.expression + input + ' + ';
+        sessionStorage.expression = sessionStorage.expression + parseFloat(input, 10) + ' + ';
         setInput('0');
         break;
       case '-':
-        sessionStorage.expression = sessionStorage.expression + input + ' - ';
+        sessionStorage.expression = sessionStorage.expression + parseFloat(input, 10) + ' - ';
         setInput('0');
         break;
       case 'x':
-        sessionStorage.expression = sessionStorage.expression + input + ' * ';
+        sessionStorage.expression = sessionStorage.expression + parseFloat(input, 10) + ' * ';
         setInput('0');
         break;
       case String.fromCharCode('0x00F7'):
-        sessionStorage.expression = sessionStorage.expression + input + ' ' + String.fromCharCode('0x00F7') + ' ';
+        sessionStorage.expression = sessionStorage.expression + parseFloat(input, 10) + ' / ';
+        setInput('0');
+        break;
+      case '=':
+        sessionStorage.expression = sessionStorage.expression + parseFloat(input, 10);
+        sessionStorage.evaluation = eval(sessionStorage.expression);
+        sessionStorage.expression = sessionStorage.expression  + ' = ';
         setInput('0');
         break;
     }
   }
-  const operatorButtons = operators.map((operator) =>
+  const operatorButtons = operators.map((operator, index) =>
     <button
+      className='operators'
       key={operator}
-      id={operator}
-      onClick={() => saveExpression(operator)}>
+      id={'op' + index}
+      onClick={() => saveOrEvalExpression(operator)}>
         {operator}
     </button>
   );
@@ -128,10 +162,11 @@ function NumberList(props){
   const numbers = props.numbers;
   const input = props.input;
   const setInput = props.setInput;
-  const numberButtons = numbers.map((number) =>
+  const numberButtons = numbers.map((number, index) =>
     <button
+      className='numbers'
       key={number}
-      id={number}
+      id={'num' + index}
       onClick={() => setInput(input + number)}>
         {number}
     </button>
@@ -144,7 +179,7 @@ function NumberList(props){
 }
 //numbers on a calculator
 function Numbers(props){
-  const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
+  const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
   const input = props.input;
   const setInput = props.setInput;
   return(
@@ -161,13 +196,13 @@ function Numbers(props){
 function App(){
   const [input, setInput] = useState('0')
   return (
-    <>
+    <div id='appWrapper'>
       <OutputHistory />
       <Output input={input}/>
       <Numbers setInput={setInput} input={input}/>
       <Operators setInput={setInput} input={input}/>
       <Utilities setInput={setInput} input={input}/>
-    </>
+    </div>
   );
 }
 
