@@ -200,7 +200,7 @@ function App(){
   const [input, setInput] = useState('0')
   return (
     <>
-      <HashRouter>
+      <HashRouter basename={process.env.PUBLIC_URL}>
         <div id='appWrapper'>
           <OutputHistory />
           <Output input={input}/>
