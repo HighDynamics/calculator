@@ -1,7 +1,7 @@
 #appWrapper{
   display: grid;
     grid-template-columns: 25vw 25vw 25vw 25vw;
-    grid-template-rows: 10vh 20vh 10vh 12vh 12vh 12vh 12vh 12vh;
+    grid-template-rows: 10vh 20vh 10vh 11vh 11vh 11vh 11vh 11vh;
     grid-template-areas:
       'expression expression expression expression'
       'evaluation evaluation evaluation evaluation'

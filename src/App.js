@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react'
 import './App.css';
-import { HashRouter, Route, Switch } from 'react-router-dom';
 
 function OutputHistory(props){
   return(
@@ -200,7 +199,6 @@ function App(){
   const [input, setInput] = useState('0')
   return (
     <>
-      <HashRouter basename={process.env.PUBLIC_URL}>
         <div id='appWrapper'>
           <OutputHistory />
           <Output input={input}/>
@@ -208,7 +206,6 @@ function App(){
           <Operators setInput={setInput} input={input}/>
           <Utilities setInput={setInput} input={input}/>
         </div>
-      </HashRouter>
     </>
   );
 }
