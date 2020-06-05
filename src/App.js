@@ -29,6 +29,7 @@ function UtilityList(props){
     <button
       id='AC'
       key='AC'
+      className='utilities'
       onClick={() => clickUtility('AC')}>
       AC
       </button>
@@ -36,6 +37,7 @@ function UtilityList(props){
     <button
       id="C"
       key='C'
+      className='utilities'
       onClick={() => clickUtility('C')}>
       C
       </button>

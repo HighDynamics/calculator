@@ -14,12 +14,21 @@
 }
 #expression{
   grid-area: expression;
+  font-size: calc(30px + (50 - 30) * ((100vw - 300px) / (1600 - 300)));
 }
 #evaluation{
   grid-area: evaluation;
+  font-size: calc(100px + (130 - 100) * ((100vw - 300px) / (1600 - 300)));
 }
 #output{
   grid-area: output;
+  font-size: calc(30px + (50 - 30) * ((100vw - 300px) / (1600 - 300)));
+}
+#AC{
+  grid-area: AC;
+}
+#C{
+  grid-area: AC;
 }
 #ut0{
   grid-area: negPos;
@@ -76,11 +85,11 @@
   grid-area: point;
 }
 .utilities{
-
+  font-size: calc(30px + (50 - 30) * ((100vw - 300px) / (1600 - 300)));
 }
 .operators{
-
+  font-size: calc(30px + (50 - 30) * ((100vw - 300px) / (1600 - 300)));
 }
 .numbers{
-
+  font-size: calc(30px + (50 - 30) * ((100vw - 300px) / (1600 - 300)));
 }
