@@ -1,7 +1,7 @@
 #appWrapper{
   display: grid;
     grid-template-columns: 25vw 25vw 25vw 25vw;
-    grid-template-rows: 10vh 20vh 10vh 11vh 11vh 11vh 11vh 11vh;
+    grid-template-rows: 10vh 20vh 10vh 11vh 11vh 11vh 11vh 11vh 5vh;
     grid-template-areas:
       'expression expression expression expression'
       'evaluation evaluation evaluation evaluation'
@@ -11,6 +11,7 @@
       'num4 num5 num6 minus'
       'num1 num2 num3 plus'
       'num0 num0 point equals'
+      'footer footer footer footer'
 }
 #expression{
   grid-area: expression;
