@@ -205,7 +205,6 @@ function App(){
           <Numbers setInput={setInput} input={input}/>
           <Operators setInput={setInput} input={input}/>
           <Utilities setInput={setInput} input={input}/>
-          <p id='footer'>this simple app was created by highdynamics</p>
         </div>
     </>
   );
