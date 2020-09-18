@@ -1,12 +1,16 @@
-html {
+html,
+body,
+#root {
   height: calc(100 * var(--vh));
+  margin: auto;
 }
 #appWrapper {
   position: fixed;
+  height: 100%;
   background-color: rgb(31, 52, 54);
   display: grid;
   grid-template-columns: 25vw 25vw 25vw 25vw;
-  grid-template-rows: 10vh 20vh 10vh 12vh 12vh 12vh 12vh 12vh;
+  grid-template-rows: 10% 20% 10% 12% 12% 12% 12% 12%;
   grid-template-areas:
     "expression expression expression expression"
     "evaluation evaluation evaluation evaluation"
@@ -22,7 +26,7 @@ html {
   font-size: calc(30px + (50 - 30) * ((100vw - 300px) / (1600 - 300)));
   background-color: rgb(52, 73, 75);
   color: white;
-  line-height: 10vh;
+  line-height: 10%;
   padding-left: 3vw;
 }
 #evaluation {
@@ -31,7 +35,7 @@ html {
   background-color: rgb(45, 66, 68);
   color: white;
   text-align: right;
-  line-height: 20vh;
+  line-height: 20%;
   padding-right: 3vw;
 }
 #output {
@@ -40,7 +44,7 @@ html {
   font-size: calc(30px + (50 - 30) * ((100vw - 300px) / (1600 - 300)));
   background-color: rgb(38, 59, 61);
   color: white;
-  line-height: 10vh;
+  line-height: 10%;
   padding-right: 3vw;
 }
 #AC {
