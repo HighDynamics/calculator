@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react";
+import React, { useState, useContext } from "react";
 import "./App.css";
 
+const ExpressionContext = React.createContext(null);
+const EvaluationContext = React.createContext(null);
 function OutputHistory(props) {
   return (
     <>
-      <div id="expression">{sessionStorage.expression}</div>
-      <div id="evaluation">{sessionStorage.evaluation}</div>
+      <div id="expression">{props.expression}</div>
+      <div id="evaluation">{props.evaluation}</div>
     </>
   );
 }
@@ -22,6 +23,8 @@ function Output(props) {
 }
 //get utilities from props and render
 function UtilityList(props) {
+  const [expression, setExpression] = useContext(ExpressionContext);
+  const [evaluation, setEvaluation] = useContext(EvaluationContext);
   const utilities = props.utilities;
   const input = props.input;
   const setInput = props.setInput;
@@ -48,12 +51,12 @@ function UtilityList(props) {
   function clickUtility(utility) {
     switch (utility) {
       case "AC":
-        sessionStorage.expression = "";
-        sessionStorage.evaluation = "";
-        setInput("0");
+        setExpression("");
+        setEvaluation("");
+        setInput(0);
         break;
       case "C":
-        setInput("0");
+        setInput(0);
         break;
       case "+/-":
         if (input.charAt(0) !== "-") {
@@ -63,11 +66,13 @@ function UtilityList(props) {
         }
         break;
       case "%":
-        if (input == "0") {
-          setInput("0.");
+        if (input === 0) {
+          setInput(0);
         } else {
           setInput((parseFloat(input, 10) * 0.01).toString());
         }
+        break;
+      default:
         break;
     }
   }
@@ -83,7 +88,7 @@ function UtilityList(props) {
   ));
   return (
     <>
-      {input !== "0" ? clearButton : allClearButton}
+      {input === 0 ? allClearButton : clearButton}
       {utilityButtons}
     </>
   );
@@ -99,6 +104,8 @@ function Utilities(props) {
 }
 //get operators from props and render
 function OperatorList(props) {
+  const [expression, setExpression] = useContext(ExpressionContext);
+  const [evaluation, setEvaluation] = useContext(EvaluationContext);
   const operators = props.operators;
   const input = props.input;
   const setInput = props.setInput;
@@ -106,31 +113,27 @@ function OperatorList(props) {
   function saveOrEvalExpression(operator) {
     switch (operator) {
       case "+":
-        sessionStorage.expression =
-          sessionStorage.expression + parseFloat(input, 10) + " + ";
-        setInput("0");
+        setExpression(expression + parseFloat(input, 10) + " + ");
+        setInput(0);
         break;
       case "-":
-        sessionStorage.expression =
-          sessionStorage.expression + parseFloat(input, 10) + " - ";
-        setInput("0");
+        setExpression(expression + parseFloat(input, 10) + " - ");
+        setInput(0);
         break;
       case "x":
-        sessionStorage.expression =
-          sessionStorage.expression + parseFloat(input, 10) + " * ";
-        setInput("0");
+        setExpression(expression + parseFloat(input, 10) + " * ");
+        setInput(0);
         break;
       case String.fromCharCode("0x00F7"):
-        sessionStorage.expression =
-          sessionStorage.expression + parseFloat(input, 10) + " / ";
-        setInput("0");
+        setExpression(expression + parseFloat(input, 10) + " / ");
+        setInput(0);
         break;
       case "=":
-        sessionStorage.expression =
-          sessionStorage.expression + parseFloat(input, 10);
-        sessionStorage.evaluation = eval(sessionStorage.expression);
-        sessionStorage.expression = sessionStorage.expression + " = ";
-        setInput("0");
+        setExpression(expression + parseFloat(input, 10) + " =");
+        setEvaluation(eval(expression + parseFloat(input, 10)));
+        setInput(0);
+        break;
+      default:
         break;
     }
   }
@@ -168,7 +171,7 @@ function NumberList(props) {
       className="numbers"
       key={number}
       id={"num" + index}
-      onClick={() => setInput(input + number)}
+      onClick={() => setInput(`${input}${number}`)}
     >
       {number}
     </button>
@@ -189,14 +192,20 @@ function Numbers(props) {
 
 function App() {
   const [input, setInput] = useState(0);
+  const [expression, setExpression] = useState("");
+  const [evaluation, setEvaluation] = useState("");
   return (
     <>
       <div id="appWrapper">
-        <OutputHistory />
+        <OutputHistory expression={expression} evaluation={evaluation} />
         <Output input={input} />
         <Numbers setInput={setInput} input={input} />
-        <Operators setInput={setInput} input={input} />
-        <Utilities setInput={setInput} input={input} />
+        <ExpressionContext.Provider value={[expression, setExpression]}>
+          <EvaluationContext.Provider value={[evaluation, setEvaluation]}>
+            <Operators setInput={setInput} input={input} />
+            <Utilities setInput={setInput} input={input} />
+          </EvaluationContext.Provider>
+        </ExpressionContext.Provider>
       </div>
     </>
   );
