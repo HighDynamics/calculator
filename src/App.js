@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react";
 import "./App.css";
 
+window.addEventListener("resize", () => {
+  document
+    .querySelector(":root")
+    .style.setProperty("--vh", window.innerHeight / 100 + "px");
+});
+
 function OutputHistory(props) {
   return (
     <>

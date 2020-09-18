@@ -1,6 +1,5 @@
-html,
-body {
-  height: 100%;
+html {
+  height: calc(100 * var(--vh));
 }
 #appWrapper {
   position: fixed;
