@@ -3,6 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+window.addEventListener("resize", () => {
+  document
+    .querySelector(":root")
+    .style.setProperty("--vh", window.innerHeight / 100 + "px");
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

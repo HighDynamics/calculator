@@ -114,6 +114,7 @@ button {
   font-family: sans-serif;
   cursor: pointer;
   text-align: center;
+  background: white;
   transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
