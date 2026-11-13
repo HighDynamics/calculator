@@ -130,7 +130,7 @@ function OperatorList(props) {
         break;
       case "=":
         setExpression(expression + parseFloat(input, 10) + " =");
-        setEvaluation(eval(expression + parseFloat(input, 10)));
+        setEvaluation((0, eval)(expression + parseFloat(input, 10)));
         setInput(0);
         break;
       default:
